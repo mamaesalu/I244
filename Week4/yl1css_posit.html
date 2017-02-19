@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>I244 4. nädal</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+			#big {width: 100px;
+				height: 100px;
+				position: fixed;
+				top: 300px;
+				left: 300px;}
+			.small {border: 3px solid grey;
+				border-radius: 50%;
+				position: absolute;}
+			.small:nth-child(1) {
+				height: 100%;
+				width: 100%;
+				left: 0%;
+				top: 0%;
+				}
+			.small:nth-child(2) {
+				height: 90%;
+				width: 90%;
+				left:5%;
+				top: 5%;
+				}
+			.small:nth-child(3) {
+				height: 70%;
+				width: 70%;
+				left:15%;
+				top: 15%;
+				}
+			.small:nth-child(4) {
+				height: 50%;
+				width: 50%;
+				left:25%;
+				top: 25%;
+				}
+			.small:nth-child(5) {
+				height: 30%;
+				width: 30%;
+				left:35%;
+				top: 35%;
+				}
+			.small:nth-child(6) {
+				height: 10%;
+				width: 10%;
+				left:45%;
+				top: 45%;
+				}
+			.small:nth-child(odd){
+				background-color: red;
+				border-color: red;}
+			.small:nth-child(even){
+				background-color: white;}
+			#part {
+				position: fixed;
+				width: 100%;
+				bottom: 0px;
+				left: 0px;}
+			body {
+				background: #0A24A9;}
+		</style>
+	</head>
+	
+	<body>
+	<img id="part" src="duck.png" alt="duck"/>
+		<div id = "big">
+			<div class = "small">
+			</div>
+			<div class = "small">
+			</div>
+			<div class = "small">
+			</div>
+			<div class = "small">
+			</div>
+			<div class = "small">
+			</div>
+			<div class = "small">
+			</div>
+		</div>
+	</body>
+		
+</html>

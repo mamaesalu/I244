@@ -19,13 +19,13 @@ $li_width="5";
 if (isset($_POST['linewidth']) && $_POST['linewidth']!="") {
     $li_width=htmlspecialchars($_POST['linewidth']);
 }
-$li_style="double";
+$li_style="Solid";
 if (isset($_POST['linestyle']) && $_POST['linestyle']!="") {
-    $li_width=htmlspecialchars($_POST['linestyle']);
+    $li_style=htmlspecialchars($_POST['linestyle']);
 }
-$li_rad="50";
+$li_rad="10";
 if (isset($_POST['lineradius']) && $_POST['lineradius']!="") {
-    $li_width=htmlspecialchars($_POST['lineradius']);
+    $li_rad=htmlspecialchars($_POST['lineradius']);
 }
 ?>
 <!DOCTYPE html>
@@ -37,7 +37,7 @@ if (isset($_POST['lineradius']) && $_POST['lineradius']!="") {
         body {
 
         }
-        div {
+        #joon {
             border: solid 2px green;
             border-radius: 5px;
             padding: 5px;
@@ -47,10 +47,11 @@ if (isset($_POST['lineradius']) && $_POST['lineradius']!="") {
         }
         #text {
             height: 100px;
+            width: 29%;
             background-color: <?php echo $bg_col; ?>;
             color: <?php echo $text_col; ?>;
             border-color: <?php echo $li_col;?>;
-            border: <?php echo $li_width;?>px;
+            border-width: <?php echo $li_width;?>px;
             border-style: <?php echo $li_style;?>;
             border-radius: <?php echo $li_rad;?>px;
         }
@@ -66,10 +67,10 @@ if (isset($_POST['lineradius']) && $_POST['lineradius']!="") {
     <p><?php echo $text;?><p/>
 </div>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    <p><textarea rows ="2" cols="25" name="text" ><?php echo $text;?></textarea></p>
+    <p><textarea rows ="2" cols="25" name="text" placeholder="Kirjuta siia"><?php echo $text;?></textarea></p>
     <p><input type="color" name="bgcolor" value="<?php echo $bg_col;?>">Taustavärvus</p>
     <p><input type="color" name="textcolor" value="<?php echo $text_col;?>">Tekstivärvus</p>
-    <div>Piirjoon
+    <div id="joon">Piirjoon
         <p><input type="color" name="linecolor" value="<?php echo $li_col;?>">Piirjoone värvus</p>
         <p><select name="linestyle">
             <option value="solid">Solid</option>

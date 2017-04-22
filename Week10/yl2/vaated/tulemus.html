@@ -1,0 +1,15 @@
+<?php if (($id) && (empty($_SESSION['voted_for']))):	?>
+	<h3>Oled teinud oma valiku</h3>
+	<p>Valisid selle ilusa pildi: <br/>
+		<img src="<?php echo $pildid[$id]['src'];?>" alt="väljavalitu"/></p>
+		<a href="?page=vote">vali uuesti!</a>
+	<?php $_SESSION['voted_for'] = $id;?>
+<?php elseif (!empty($_SESSION['voted_for'])): ?>
+	<p>Oled juba hääletanud pildi <?= $_SESSION['voted_for']?> poolt</p>
+<?php else: ?>
+	<?php if (empty($_POST['pilt'])): ?>
+		<h3>Hääletamiseks palun vali pilt <a href="?page=vote">siit</a>.</h3>
+	<?php else: ?>
+		<h3>Sellist pilti ei eksisteeri, palun tee uus <a href="?page=vote">valik</a>.</h3>
+	<?php endif; ?>
+<?php endif; ?>

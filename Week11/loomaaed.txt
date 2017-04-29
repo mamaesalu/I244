@@ -1,0 +1,53 @@
+CREATE TABLE maile_loomamaed(
+id INT( 3 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY ,
+nimi VARCHAR( 50 ) ,
+vanus INT( 3 ) ,
+liik VARCHAR( 50 ) ,
+puur INT( 3 )
+)
+
+INSERT INTO maile_loomamaed( nimi, vanus, liik, puur ) 
+VALUES (
+'Kigoma',  '7',  'ninasarvik',  '1'
+)
+
+INSERT INTO maile_loomamaed( nimi, vanus, liik, puur ) 
+VALUES (
+ 'Holger',  '43',  'jõehobu',  '2'
+)
+
+INSERT INTO maile_loomamaed( nimi, vanus, liik, puur ) 
+VALUES (
+ 'Darla',  '13',  'leopard',  '4'
+)
+
+INSERT INTO maile_loomamaed( nimi, vanus, liik, puur ) 
+VALUES (
+ 'Freddie',  '18',  'leopard',  '4'
+)
+
+INSERT INTO maile_loomamaed( nimi, vanus, liik, puur ) 
+VALUES (
+ 'Nala',  '2',  'lumeleopard',  '3'
+)
+
+Hankida kõigi mingis ühes kindlas puuris elavate loomade nimi ja puuri number
+SELECT nimi, puur
+FROM maile_loomamaed
+WHERE PUUR =4
+
+Hankida vanima ja noorima looma vanused
+SELECT MAX( vanus ) , MIN( vanus ) 
+FROM maile_loomamaed
+
+hankida puuri number koos selles elavate loomade arvuga (vihjeks: group by ja count )
+SELECT puur, COUNT( nimi ) 
+FROM maile_loomamaed
+GROUP BY puur
+
+suurendada kõiki tabelis olevaid vanuseid 1 aasta võrra
+UPDATE maile_loomamaed SET vanus = vanus +1
+
+
+
+

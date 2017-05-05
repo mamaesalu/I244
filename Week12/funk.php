@@ -56,6 +56,9 @@ function logout(){
 function kuva_puurid(){
 	// siia on vaja funktsionaalsust
     global $connection;
+    if (empty($_SESSION['user'])) {
+        header("Location: ?page=login");
+    }
     $puurid = array();
     $sql = "SELECT DISTINCT(puur) AS puur FROM maile_loomaaed ORDER BY puur ASC";
     $puuride_nr = mysqli_query($connection, $sql) or die ("ei saanud puuride numbreid");
@@ -96,7 +99,7 @@ function lisa(){
                 $sql = "INSERT INTO maile_loomaaed (nimi, puur, liik) VALUES ('{$loomanimi}','{$puurinr}', '{$fail}')";
                 $result = mysqli_query($connection, $sql) or die ("ei saa looma lisatud".mysqli_error($connection));
                 $rida = mysqli_insert_id($result);
-                print_r($rida);
+                #print_r($rida);
                 if ($rida) {
                     $_SESSION['user'] = $_POST['user'];
                     header("Location: ?page=loomad");

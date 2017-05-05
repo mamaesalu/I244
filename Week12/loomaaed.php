@@ -15,7 +15,10 @@ switch($page){
 		logi();
 	break;
 	case "loomad":
-		kuva_puurid();
+        if (empty($_SESSION['user'])) {
+            header("Location: ?page=login");
+        }
+		else kuva_puurid();
 	break;
 	case "logout":
 		logout();

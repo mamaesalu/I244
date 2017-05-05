@@ -1,0 +1,14 @@
+<?php if (!empty($puurid)):?>
+    <?php foreach ($puurid as $pr=>$puur) :?>
+        <div>
+            <p>Puuris nr <?php echo $pr;?> elavad:</p>
+            <?php foreach ($puur as $loom):?>
+                <img src="<?php echo $loom['liik']; ?>" alt="<?php echo $loom['nimi']; ?>" title="<?php echo $loom['nimi']; ?>">
+            <?php endforeach;?>
+        </div>
+    <?php endforeach; ?>
+<?php endif;?>
+
+<pre>
+    <?php print_r($puurid);?>
+</pre>

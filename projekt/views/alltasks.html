@@ -1,19 +1,27 @@
 <div class = 'tasks'>
     <?php if (!empty($tasks)): ?>
-    <table id = "tasks">
+        <?php foreach ($tasks as $nr=>$user) :?>
+        <table id = "tasks">
         <thead>
         <tr>
-            <th>Ülesanne</th><th>Kategooria</th><th>Tähtaeg</th>
+            <th class = "task_col">Ülesanne</th><th>Kategooria</th><th>Tähtaeg</th>
         </tr>
         </thead>
-
-        <?php foreach ($tasks as $task): ?>
-        <tbody>
-        <tr>
-            <td><?php echo $task['task']; ?></td><td><?php echo $task['categ']; ?></td><td><?php echo $task['deadline']; ?></td>
-        </tr>
-        </tbody>
+        <div>
+            <?php if ($nr == $_SESSION['user']['id']):?>
+            <p>Minu ülesanded!</p>
+            <?php else: ?>
+            <p>Kasutaja <?php echo $nr; ?> ülesanded:</p>
+            <?php endif; ?>
+            <tbody>
+            <?php foreach ($user as $task):?>
+            <tr>
+                <td class = "task_col"><?php echo $task['task']; ?></td><td><?php echo $task['categ']; ?></td><td><?php echo $task['deadline']; ?></td>
+            </tr>
+            <?php endforeach;?>
+            </tbody>
+        </div>
+        <?php endforeach; ?>
     </table>
-    <?php endforeach; ?>
     <?php endif; ?>
 </div>

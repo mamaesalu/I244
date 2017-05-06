@@ -1,9 +1,13 @@
 <div id="add">
     <form action="?mode=add" method="POST" >
+        <textarea rows="3" cols="40" name="task" placeholder="Kirjuta siia"><?php if (!empty($_POST['task'])) echo htmlspecialchars($_POST['task']);?></textarea><br/>
+        <?php if ($_SESSION['user']['usern'] != 'admin'): ?>
         <input type="hidden" name="user_id" value = "<?php echo $_SESSION['user']['id']; ?>" /><br/>
-        <input type="text" name="task" placeholder="ülesande kirjeldus"/><br/>
-        <input type="number" name="categ"/><br/>
-        <input type="date" name="deadline"/><br/>
+        <?php else: ?>
+        <!-- siia lisada bossile võimalus teistele ülesannete lisamiseks-->
+        <?php endif; ?>
+        <input type="number" name="categ" value = "<?php if (!empty($_POST['categ'])) echo htmlspecialchars($_POST['categ']);?>"/><br/>
+        <input type="date" name="deadline" value = "<?php if (!empty($_POST['deadline'])) echo htmlspecialchars($_POST['deadline']);?>"/><br/>
         <input type="submit" value="lisa ülesanne!"/>
     </form>
     <?php if (isset($errors)):?>
@@ -12,3 +16,4 @@
     <?php endforeach;?>
     <?php endif;?>
 </div>
+<pre><?php print_r($usertasks); ?></pre>

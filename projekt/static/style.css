@@ -1,0 +1,62 @@
+#sisse {
+    background: url('pildid/v2rav.png') no-repeat center;
+    display: inline-block;
+    width: 100%;
+    padding:235px 0px;
+    text-align: center;
+    text-decoration: none;
+    color: gold;
+    font-weight: bold;
+    font-size: 30px;
+    text-shadow:0px 0px 10px black;
+}
+
+body {
+    background: lightyellow;
+    margin:0px;
+}
+#kasutaja {
+    text-align: right;
+    background-color: lightgrey;
+}
+#wrap{
+    width: 800px;
+    background: white;
+    margin: auto;
+    overflow: auto;
+    min-height:600px;
+}
+#menu {
+    list-style: none;
+    background: darkorange;
+    margin: 0px;
+    padding: 0px;
+    text-align: left;
+}
+#menu li, #menu a {
+    display: inline-block;
+}
+#menu a {
+    padding:5px 20px;
+    color: black;
+    text-decoration: none;
+}
+#menu a:hover {
+    background: #ffdfcb;
+    color: #f67625;
+}
+#content {
+    padding:10px;
+}
+#login{
+    margin:auto;
+    width: 40%;
+    margin-top:25%;
+}
+#tasks {
+    border: solid 1px black;
+}
+
+.clear {
+    clear:both;
+}

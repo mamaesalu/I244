@@ -1,0 +1,19 @@
+<div class = 'tasks'>
+    <?php if (!empty($tasks)): ?>
+    <table id = "tasks">
+        <thead>
+        <tr>
+            <th>Ülesanne</th><th>Kategooria</th><th>Tähtaeg</th>
+        </tr>
+        </thead>
+
+        <?php foreach ($tasks as $task): ?>
+        <tbody>
+        <tr>
+            <td><?php echo $task['task']; ?></td><td><?php echo $task['categ']; ?></td><td><?php echo $task['deadline']; ?></td>
+        </tr>
+        </tbody>
+    </table>
+    <?php endforeach; ?>
+    <?php endif; ?>
+</div>

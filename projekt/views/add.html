@@ -1,0 +1,14 @@
+<div id="add">
+    <form action="?mode=add" method="POST" >
+        <input type="hidden" name="user_id" value = "<?php echo $_SESSION['user']['id']; ?>" /><br/>
+        <input type="text" name="task" placeholder="ülesande kirjeldus"/><br/>
+        <input type="number" name="categ"/><br/>
+        <input type="date" name="deadline"/><br/>
+        <input type="submit" value="lisa ülesanne!"/>
+    </form>
+    <?php if (isset($errors)):?>
+    <?php foreach($errors as $error):?>
+    <div style="color:red;"><?php echo htmlspecialchars($error); ?></div>
+    <?php endforeach;?>
+    <?php endif;?>
+</div>

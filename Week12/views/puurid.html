@@ -3,7 +3,14 @@
         <div>
             <p>Puuris nr <?php echo $pr;?> elavad:</p>
             <?php foreach ($puur as $loom):?>
+
+            <?php if($_SESSION['roll'] == 'admin'): ?>
+            <a href="?page=muuda&id=<?php echo $loom['id']?> ">
+            <?php endif;?>
                 <img src="<?php echo $loom['liik']; ?>" alt="<?php echo $loom['nimi']; ?>" title="<?php echo $loom['nimi']; ?>">
+            <?php if($_SESSION['roll'] == 'admin'): ?>
+            </a>
+            <?php endif;?>
             <?php endforeach;?>
         </div>
     <?php endforeach; ?>

@@ -31,12 +31,13 @@ function logi(){
             if (empty($errors)) {
                 $kasutaja = mysqli_real_escape_string($connection, $_POST["user"]);
                 $parool = mysqli_real_escape_string($connection, $_POST["pass"]);
-                $sql = "SELECT id FROM maile_kylastajad WHERE username = '{$kasutaja}' and passw= SHA1('{$parool}')";
+                $sql = "SELECT id, roll FROM maile_kylastajad WHERE username = '{$kasutaja}' and passw= SHA1('{$parool}')";
                 $result = mysqli_query($connection, $sql) or die ("ei saa parooli ja kasutajat kontrollitud".mysqli_error($connection));
-                $rida = mysqli_num_rows($result);
-                print_r($rida);
-                if ($rida) {
+                #$rida = mysqli_num_rows($result);
+                #print_r($rida);
+                if (mysqli_num_rows($result)) {
                     $_SESSION['user'] = $_POST['user'];
+                    $_SESSION['roll'] = mysqli_fetch_assoc($result)['roll'];
                     header("Location: ?page=loomad");
                 } else {
                     header("Location: ?page=login");
@@ -79,6 +80,9 @@ function lisa(){
     global $errors;
     if (empty($_SESSION['user'])){
         header("Location: ?page=login");
+    }
+    elseif ($_SESSION['roll'] == 'user'){
+        header("Location: ?page=loomad");
     }
     else {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -140,6 +144,65 @@ function upload($name){
 	} else {
 		return "";
 	}
+}
+
+function hangi_loom($id){
+    global $connection;
+
+    #$loom = array();
+    $sql = "SELECT * FROM maile_loomaaed WHERE id='$id'";
+    $result = mysqli_query($connection, $sql) or die ("ei saanud loomade andmeid");
+    if (mysqli_num_rows($result)) {
+        return mysqli_fetch_assoc($result);
+    } else {
+        header("Location: ?page=loomad");
+    }
+}
+
+function muuda(){
+    global $connection;
+    global $errors;
+    if (empty($_SESSION["user"])) {
+        header("Location: ?page=login");
+    } elseif ($_SESSION["roll"] == "user") {
+        header("Location: ?page=loomad");
+    } else {
+        if (!empty($_POST['id'])){
+            $id = mysqli_real_escape_string($connection, $_POST['id']);
+            $loom = hangi_loom($id);
+            }
+        elseif (!empty($_GET['id']) or (!empty($_GET["id"]))){
+            $id = mysqli_real_escape_string($connection, $_GET['id']);
+            $loom = hangi_loom($id);
+        }
+        else header("Location: ?page=loomad");
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $errors = array();
+            if (!empty($_POST['nimi'])) {
+
+            } else $errors[] = "Sisestage loomanimi";
+            if (!empty($_POST['puur'])) {
+
+            } else $errors[] = "Sisestage puur";
+            if (empty($errors)) {
+                $id = mysqli_real_escape_string($connection, $_POST['id']);
+                $loomanimi = mysqli_real_escape_string($connection, $_POST["nimi"]);
+                $puurinr = mysqli_real_escape_string($connection, $_POST["puur"]);
+                if (upload("liik")) {
+                    $fail = mysqli_real_escape_string($connection, upload("liik"));
+                } else {
+                    $fail = $loom['liik'];
+                }
+                $sql = "UPDATE maile_loomaaed SET nimi = '$loomanimi', puur = '$puurinr', liik = '$fail' WHERE id = '$id'";
+                $result = mysqli_query($connection, $sql) or die ("ei saa looma muudetud".mysqli_error($connection));
+                print_r($result);
+                header("Location: ?page=loomad");
+            }
+        }
+    }
+    include_once('views/editvorm.html');
+
 }
 
 ?>

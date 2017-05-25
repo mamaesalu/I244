@@ -117,7 +117,9 @@ function add_tasks(){
         if (empty($_POST['deadline'])){
             $errors[]="lisa täitmise tähtaeg!";
         }
-
+        if (strtotime($_POST['deadline']) < strtotime('TODAY')){
+            $errors[]="tähtaeg ei saa olla minevikus!";
+        }
 
         if (empty($errors)){
             $task=mysqli_real_escape_string($connection ,$_POST['task']);

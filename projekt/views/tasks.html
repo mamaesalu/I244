@@ -3,14 +3,14 @@
     <table id = "tasks">
         <thead>
         <tr>
-            <th>Ülesanne</th><th>Kategooria</th><th>Tähtaeg</th>
+            <th class = "task_col">Ülesanne</th><th>Kategooria</th><th>Tähtaeg</th>
         </tr>
         </thead>
 
         <?php foreach ($tasks as $task): ?>
             <tbody>
             <tr>
-                <td><?php echo $task['task'] ?></td><td><?php echo $task['categ'] ?></td><td><?php echo $task['deadline'] ?></td>
+                <td class = "task_col"><?php echo $task['task'] ?></td><td><?php echo $task['categ'] ?></td><td><?php echo $task['deadline'] ?></td>
             </tr>
             </tbody>
             <?php endforeach; ?>

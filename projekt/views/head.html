@@ -12,7 +12,9 @@
     <ul id="menu">
         <li><a href="?">Pealeht</a></li>
         <?php if(isset($_SESSION['user'])): ?>
+        <?php if($_SESSION['user']['usern']!= 'admin'): ?>
         <li><a href="?mode=tasks">Minu ülesanded</a></li>
+        <?php endif; ?>
             <?php if($_SESSION['user']['usern']== 'admin'): ?>
             <li><a href="?mode=alltasks">Kõik ülesanded</a></li>
             <?php endif; ?>

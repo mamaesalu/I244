@@ -32,7 +32,6 @@ function login(){
                 $parool = mysqli_real_escape_string($connection, $_POST["pass"]);
                 $sql = "SELECT id, usern FROM maile_users WHERE usern = '$user' and passw= SHA1('$parool')";
                 $result = mysqli_query($connection, $sql) or die ("ei saa parooli ja kasutajat kontrollitud".mysqli_error($connection));
-                #$rida = mysqli_num_rows($result);
                 if ($result && $user = mysqli_fetch_assoc($result)){
                     $_SESSION['user'] = $user;
                     #$userid = $rida[id];
@@ -56,6 +55,9 @@ function view_tasks(){
     global $connection;
     if (empty($_SESSION['user'])) {
         header("Location: ?mode=login");
+    }
+    if ($_SESSION['user']['usern'] == 'admin'){
+        header("Location: ?mode=alltasks");
     }
     $tasks = array();
     $userid = mysqli_real_escape_string($connection, $_SESSION['user']['id']);

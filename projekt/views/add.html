@@ -1,14 +1,25 @@
 <div id="add">
     <form action="?mode=add" method="POST" >
-        <textarea rows="3" cols="40" name="task" placeholder="Kirjuta siia"><?php if (!empty($_POST['task'])) echo htmlspecialchars($_POST['task']);?></textarea><br/>
+        <textarea rows="3" cols="40" name="task" placeholder="Kirjuta siia ülesande sisu"><?php if (!empty($_POST['task'])) echo htmlspecialchars($_POST['task']);?></textarea><br/>
         <?php if ($_SESSION['user']['usern'] != 'admin'): ?>
         <input type="hidden" name="user_id" value = "<?php echo $_SESSION['user']['id']; ?>" /><br/>
-        <?php else: ?>
-        <!-- siia lisada bossile võimalus teistele ülesannete lisamiseks-->
+        <?php else: ?><!-- adminil võimalus kõigile ülesannete lisamiseks-->
+        Vali kasutaja, kellele ülesanne lisada:
+        <select name = "user_id">
+            <?php foreach($users as $key => $user):?>
+            <option value="<?php echo $user['id']; ?>"><?php echo $user['usern']; ?></option>
+            <?php endforeach;?>
+        </select><br>
         <?php endif; ?>
-        <input type="number" name="categ" value = "<?php if (!empty($_POST['categ'])) echo htmlspecialchars($_POST['categ']);?>"/><br/>
+        Vali siit, millega ülesanne seotud on:
+        <select name = "categ">
+            <?php foreach($categs as $cat):?>
+            <option value="<?php echo $cat; ?>"<?php if(!empty($_POST['categ']) && $_POST['categ']== $cat) echo 'selected = "selected"';?>><?php echo $cat; ?></option>
+            <?php endforeach;?>
+        </select><br>
+        Määra ülesandele täitmise tähtaeg:
         <input type="date" name="deadline" value = "<?php if (!empty($_POST['deadline'])) echo htmlspecialchars($_POST['deadline']);?>"/><br/>
-        <input type="submit" value="lisa ülesanne!"/>
+        <input type="submit" value="Lisa ülesanne!"/><br>
     </form>
     <?php if (isset($errors)):?>
     <?php foreach($errors as $error):?>
@@ -16,4 +27,3 @@
     <?php endforeach;?>
     <?php endif;?>
 </div>
-<pre><?php print_r($usertasks); ?></pre>

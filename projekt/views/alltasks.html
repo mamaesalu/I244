@@ -9,9 +9,14 @@
         </thead>
         <div>
             <?php if ($nr == $_SESSION['user']['id']):?>
-            <p>Minu ülesanded!</p>
+            <p><b>Minu ülesanded!</b></p>
             <?php else: ?>
-            <p>Kasutaja <?php echo $nr; ?> ülesanded:</p>
+            <?php foreach($users as $key => $usr):?>
+            <?php if($usr['id']==$nr): ?>
+            <p>Kasutaja <b><?php echo $usr['usern']; ?></b> ülesanded:</p>
+            <?php endif; ?>
+            <?php endforeach;?>
+
             <?php endif; ?>
             <tbody>
             <?php foreach ($user as $task):?>

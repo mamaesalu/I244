@@ -70,6 +70,7 @@ function view_tasks(){
 
 function view_alltasks(){
     global $connection;
+    $users = get_users();
     if (empty($_SESSION['user'])) {
         header("Location: ?mode=login");
     }
@@ -95,7 +96,9 @@ function view_alltasks(){
 
 function add_tasks(){
     global $connection;
-    global $usertasks;
+    global $users;
+    $categs=array("kool", "kodu", "töö", "muu");
+    $users = get_users();
     if (empty($_SESSION['user'])) {
         header("Location: ?mode=login");
         exit(0);
@@ -112,12 +115,12 @@ function add_tasks(){
             $errors[]="lisa täitmise tähtaeg!";
         }
 
-        $usertasks = get_users();
+
         if (empty($errors)){
             $task=mysqli_real_escape_string($connection ,$_POST['task']);
             $categ=mysqli_real_escape_string($connection,$_POST['categ']);
             $deadline=mysqli_real_escape_string($connection,$_POST['deadline']);
-            $thisuser=mysqli_real_escape_string($connection,$_SESSION['user']['id']);
+            $thisuser=mysqli_real_escape_string($connection,$_POST['user_id']);
 
             $sql="INSERT INTO maile_tasks (user_id, categ, task, deadline) VALUES ('$thisuser', '$categ', '$task', '$deadline')";
             $result = mysqli_query($connection, $sql);
@@ -136,11 +139,11 @@ function add_tasks(){
 
 function get_users(){
     global $connection;
-    $user_task=array();
-    $sql = "SELECT id, usern FROM maile_users";
-    $result = mysqli_query($connection, $sql);
-    while ($r=mysqli_fetch_assoc($result)){
-        $user_task[]=$r['usern'];
+    $users = array();
+    $sql = "SELECT * FROM maile_users GROUP BY id";
+    $result = mysqli_query($connection, $sql) or die("ei saa andmeid ".mysqli_error());
+    while ($r = mysqli_fetch_assoc($result)){
+        $users[]=$r;
     }
-    return $user_task;
+    return $users;
 }

@@ -59,7 +59,7 @@ function view_tasks(){
     }
     $tasks = array();
     $userid = mysqli_real_escape_string($connection, $_SESSION['user']['id']);
-    $sql = "SELECT * FROM maile_tasks WHERE user_id = '$userid'";
+    $sql = "SELECT * FROM maile_tasks WHERE user_id = '$userid'" . " ORDER BY deadline ASC";
     $db_tasks = mysqli_query($connection, $sql) or die ("ei saanud ylesandeid andmebaasist kätte");
     while ($db_task = mysqli_fetch_assoc($db_tasks)){
         $tasks[] = $db_task;
@@ -83,7 +83,7 @@ function view_alltasks(){
         $sql = "SELECT DISTINCT(user_id) AS user_id FROM maile_tasks ORDER BY user_id ASC";
         $userid_nr = mysqli_query($connection, $sql) or die ("ei saanud kasutajate numbreid");
         while ($user_nr = mysqli_fetch_assoc($userid_nr)){
-            $sql = "SELECT * FROM maile_tasks WHERE user_id =".mysqli_real_escape_string($connection, $user_nr['user_id']);
+            $sql = "SELECT * FROM maile_tasks WHERE user_id =".mysqli_real_escape_string($connection, $user_nr['user_id']) . " ORDER BY deadline ASC";
             $db_tasks = mysqli_query($connection, $sql) or die ("ei saanud vastavaid üleandeid andmebaasist");
             while ($db_task = mysqli_fetch_assoc($db_tasks)){
                 $tasks[$user_nr['user_id']][] = $db_task;

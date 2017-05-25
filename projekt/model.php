@@ -108,6 +108,9 @@ function add_tasks(){
         if (empty($_POST['task'])){
             $errors[]="lisa ülesande kirjeldus!";
         }
+        if (strlen($_POST['task'])> 200){
+            $errors[]="maksimaalne tähemärkide arv on 200!";
+        }
         if (empty($_POST['categ'])){
             $errors[]="vali ülesandele kategooria!";
         }

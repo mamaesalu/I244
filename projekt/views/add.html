@@ -1,25 +1,26 @@
 <div id="add">
-    <form action="?mode=add" method="POST" >
-        <textarea rows="3" cols="40" name="task" placeholder="Kirjuta siia ülesande sisu"><?php if (!empty($_POST['task'])) echo htmlspecialchars($_POST['task']);?></textarea><br/>
+    <form name = "add" action="?mode=add" method="POST" >
+        <textarea id='taskid' maxlength='200' rows="4" cols="60" name="task" placeholder="Kirjuta siia ülesande sisu"><?php if (!empty($_POST['task'])) echo htmlspecialchars($_POST['task']);?></textarea><br/><br>
+        Saad lisada veel <span id = "char_left"></span> tähemärki!<br><br>
         <?php if ($_SESSION['user']['usern'] != 'admin'): ?>
-        <input type="hidden" name="user_id" value = "<?php echo $_SESSION['user']['id']; ?>" /><br/>
+        <input type="hidden" name="user_id" value = "<?php echo $_SESSION['user']['id']; ?>" /><br/><br>
         <?php else: ?><!-- adminil võimalus kõigile ülesannete lisamiseks-->
         Vali kasutaja, kellele ülesanne lisada:
         <select name = "user_id">
             <?php foreach($users as $key => $user):?>
-            <option value="<?php echo $user['id']; ?>"><?php echo $user['usern']; ?></option>
+            <option value="<?php echo $user['id']; ?>"<?php if(!empty($_POST['user_id']) && $_POST['user_id']== $user['id']) echo 'selected = "selected"';?>><?php echo $user['usern']; ?></option>
             <?php endforeach;?>
-        </select><br>
+        </select><br><br>
         <?php endif; ?>
         Vali siit, millega ülesanne seotud on:
         <select name = "categ">
             <?php foreach($categs as $cat):?>
             <option value="<?php echo $cat; ?>"<?php if(!empty($_POST['categ']) && $_POST['categ']== $cat) echo 'selected = "selected"';?>><?php echo $cat; ?></option>
             <?php endforeach;?>
-        </select><br>
+        </select><br><br>
         Määra ülesandele täitmise tähtaeg:
-        <input type="date" name="deadline" value = "<?php if (!empty($_POST['deadline'])) echo htmlspecialchars($_POST['deadline']);?>"/><br/>
-        <input type="submit" value="Lisa ülesanne!"/><br>
+        <input type="date" name="deadline" value = "<?php if (!empty($_POST['deadline'])) echo htmlspecialchars($_POST['deadline']);?>"/><br/><br>
+        <input type="submit" value="Lisa ülesanne!"/><br><br>
     </form>
     <?php if (isset($errors)):?>
     <?php foreach($errors as $error):?>

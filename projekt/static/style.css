@@ -41,13 +41,22 @@ body {
     margin-top:25%;
 }
 table {
-    width: 800px;
+    width: 750px;
     table-layout: fixed;
     border-collapse: collapse;
+}
+.pealkiri {
+    font-size: large;
+    color: #0A24A9;
 }
 
 .tasks, th, td {
     border: 1px solid black;
+}
+.tbl {
+    border-color: transparent;
+    text-align: center;
+    width: 70px;
 }
 .task_col {
     overflow:hidden;
@@ -59,4 +68,11 @@ table {
 }
 .categ {
     text-align: center;
+}
+.deadline_col {
+    text-align: center;
+}
+.validate {
+    position: absolute;
+    bottom: 100px;
 }

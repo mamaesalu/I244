@@ -1,4 +1,5 @@
 <div id="add">
+    <p class = "pealkiri">Lisa ülesanne:</p><br>
     <form name = "add" action="?mode=add" method="POST" >
         <textarea id='taskid' maxlength='200' rows="4" cols="60" name="task" placeholder="Kirjuta siia ülesande sisu"><?php if (!empty($_POST['task'])) echo htmlspecialchars($_POST['task']);?></textarea><br/>
         Saad lisada veel <span id = "char_left"></span> tähemärki!<br><br>

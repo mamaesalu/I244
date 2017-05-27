@@ -1,11 +1,12 @@
-$(document).ready(function() {
+$(document ).ready(function() {
     var text_max = 200;
-    $('#char_left').html(text_max);
-
+    $text = $('#taskid').val().length
+    if ($text > 0){
+    $('#char_left').text(text_max - $text);
+    }
     $('#taskid').keyup(function() {
-        var text_length = $('#taskid').val().length;
-        var remaining = text_max - text_length;
-
-        $('#char_left').html(remaining);
+        var length = $(this).val().length;
+        var length = text_max-length;
+        $('#char_left').text(length);
     });
 });

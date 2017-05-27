@@ -14,13 +14,13 @@
                 <td class = "task_col"><?php echo $task['task'] ?></td>
                 <td class = "categ"><?php echo $task['categ'] ?></td>
                 <td class = "deadline_col"><?php echo $task['deadline'] ?></td>
-                <td>
+                <td class = "tbl">
                 <form action = "?mode=modify" method="POST">
                     <input type="hidden" name="modify_id" value = "<?php echo $task['id']; ?>" />
                     <input type="submit" value="Muuda" name = "modify"/>
                 </form>
                 </td>
-                <td>
+                <td class = "tbl">
                     <form action = "?mode=delete" method="POST">
                         <input type="hidden" name="delete_id" value = "<?php echo $task['id']; ?>" />
                         <input type="submit" value="Kustuta" name = "delete"/>

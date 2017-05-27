@@ -111,7 +111,7 @@ function add_tasks(){
         if (empty($_POST['task'])){
             $errors[]="lisa ülesande kirjeldus!";
         }
-        if (strlen($_POST['task'])> 200){
+        if (strlen(utf8_decode($_POST['task']))> 200){
             $errors[]="maksimaalne tähemärkide arv on 200!";
         }
         if (empty($_POST['categ'])){
@@ -186,7 +186,7 @@ function modify_tasks()
         if (empty($_POST['muudatask'])) {
             $errors[] = "lisa ülesande kirjeldus!";
         }
-        if (strlen($_POST['muudatask']) > 200) {
+        if (strlen(utf8_decode($_POST['muudatask'])) > 200) {
             $errors[] = "maksimaalne tähemärkide arv on 200!";
         }
         if (empty($_POST['muudacateg'])) {

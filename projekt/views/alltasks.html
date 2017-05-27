@@ -9,12 +9,12 @@
         </thead>
         <div>
             <?php if ($nr == $_SESSION['user']['id']):?>
-            <p><b>Minu ülesanded!</b></p>
+            <p class = "pealkiri"><b>Minu ülesanded!</b></p>
             <?php else: ?>
             <?php foreach($users as $key => $usr):?>
             <?php if($usr['id']==$nr): ?>
             <br>
-            <p>Kasutaja <b><?php echo htmlspecialchars($usr['usern']); ?></b> ülesanded:</p>
+            <p class = "pealkiri">Ülesanded: <b><?php echo htmlspecialchars($usr['usern']); ?></b></p>
             <?php endif; ?>
             <?php endforeach;?>
 
@@ -24,14 +24,14 @@
             <tr>
                 <td class = "task_col"><?php echo htmlspecialchars($task['task']); ?></td>
                 <td class = "categ"><?php echo htmlspecialchars($task['categ']); ?></td>
-                <td><?php echo htmlspecialchars($task['deadline']); ?></td>
-                <td>
+                <td class = "deadline_col"><?php echo htmlspecialchars($task['deadline']); ?></td>
+                <td class = "tbl">
                     <form action = "?mode=modify" method="POST">
                         <input type="hidden" name="modify_id" value = "<?php echo $task['id']; ?>" />
                         <input type="submit" value="Muuda" name = "modify"/>
                     </form>
                 </td>
-                <td>
+                <td class = "tbl">
                     <form action = "?mode=delete" method="POST">
                         <input type="hidden" name="delete_id" value = "<?php echo $task['id']; ?>" />
                         <input type="submit" value="Kustuta" name = "delete"/>

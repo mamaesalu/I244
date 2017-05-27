@@ -1,4 +1,4 @@
-<div class = 'tasks'>
+<div class = 'tasks_page'>
     <?php print_r($_SESSION['message']); ?>
     <?php if (!empty($tasks)): ?>
     <table class = "tasks">
@@ -12,19 +12,13 @@
             <tbody>
             <tr>
                 <td class = "task_col"><?php echo $task['task'] ?></td>
-                <td><?php echo $task['categ'] ?></td>
+                <td class = "categ"><?php echo $task['categ'] ?></td>
                 <td class = "deadline_col"><?php echo $task['deadline'] ?></td>
                 <td>
                 <form action = "?mode=modify" method="POST">
                     <input type="hidden" name="modify_id" value = "<?php echo $task['id']; ?>" />
                     <input type="submit" value="Muuda" name = "modify"/>
                 </form>
-                </td>
-                <td>
-                    <form action = "?mode=markdone" method="POST">
-                    <input type="hidden" name="done_id" value = "<?php echo $task['id']; ?>" />
-                    <input type="submit" value="Märgi tehtuks"/>
-                    </form>
                 </td>
                 <td>
                     <form action = "?mode=delete" method="POST">
@@ -38,4 +32,3 @@
     </table>
     <?php endif; ?>
 </div>
-

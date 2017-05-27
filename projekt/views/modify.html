@@ -3,8 +3,8 @@
     <form name = "modify" action="?mode=modify" method="POST" >
         <textarea id='taskid' maxlength='200' rows="4" cols="60" name="muudatask"><?php echo htmlspecialchars((empty($_POST['appr_modi'])) ? ($thistask['task']) : ($_POST['muudatask'])) ;?></textarea><br/>
         Saad lisada veel <span id = "char_left"></span> tähemärki!<br><br>
-        <input type="hidden" name="id" value = "<?php echo $thistask['id']; ?>" /><br/><br>
-        <?php if ($_SESSION['user']['usern'] != 'admin'): ?>
+        <input type="hidden" name="id" value = "<?php echo htmlspecialchars((empty($_POST['appr_modi'])) ? ($thistask['id']) : ($_POST['id'])) ;?>" /><br/><br>
+        <?php if ($_SESSION['user']['role'] != 'admin'): ?>
 
         <input type="hidden" name="user_id" value = "<?php echo $_SESSION['user']['id']; ?>" /><br/><br>
         <?php else: ?><!-- adminil võimalus kõigile ülesannete lisamiseks-->
@@ -23,7 +23,8 @@
         </select><br><br>
         Määra ülesandele täitmise tähtaeg:
         <input type="date" name="muudadeadline" value = "<?php echo htmlspecialchars((empty($_POST['appr_modi'])) ? ($thistask['deadline']) : ($_POST['muudadeadline'])) ;?>"/><br/><br>
-        <input type="submit" value="Kinnita muutus!" name = "appr_modi"/><br><br>
+        <input type="submit" value="Kinnita muutus" name = "appr_modi"/>
+        <input type="submit" value="Loobu" name = "dont_modi"/><br><br><br><br>
     </form>
     <?php if (isset($errors)):?>
     <?php foreach($errors as $error):?>

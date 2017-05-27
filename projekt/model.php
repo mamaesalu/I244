@@ -30,7 +30,7 @@ function login(){
             if (empty($errors)) {
                 $user = mysqli_real_escape_string($connection, $_POST["user"]);
                 $parool = mysqli_real_escape_string($connection, $_POST["pass"]);
-                $sql = "SELECT id, usern FROM maile_users WHERE usern = '$user' and passw= SHA1('$parool')";
+                $sql = "SELECT id, usern, role FROM maile_users WHERE usern = '$user' and passw= SHA1('$parool')";
                 $result = mysqli_query($connection, $sql) or die ("ei saa parooli ja kasutajat kontrollitud".mysqli_error($connection));
                 if ($result && $user = mysqli_fetch_assoc($result)){
                     $_SESSION['user'] = $user;
@@ -56,7 +56,7 @@ function view_tasks(){
     if (empty($_SESSION['user'])) {
         header("Location: ?mode=login");
     }
-    if ($_SESSION['user']['usern'] == 'admin'){
+    if ($_SESSION['user']['role'] == 'admin'){
         header("Location: ?mode=alltasks");
     }
     $tasks = array();
@@ -76,12 +76,12 @@ function view_alltasks(){
     if (empty($_SESSION['user'])) {
         header("Location: ?mode=login");
     }
-    if ($_SESSION['user']['usern'] != 'admin'){
+    if ($_SESSION['user']['role'] != 'admin'){
         header("Location: ?mode=tasks");
     }
     $tasks = array();
     #$userid = mysqli_real_escape_string($connection, $_SESSION['user']['id']);
-    if ($_SESSION['user']['usern'] == 'admin') {
+    if ($_SESSION['user']['role'] == 'admin') {
         $sql = "SELECT DISTINCT(user_id) AS user_id FROM maile_tasks ORDER BY user_id ASC";
         $userid_nr = mysqli_query($connection, $sql) or die ("ei saanud kasutajate numbreid");
         while ($user_nr = mysqli_fetch_assoc($userid_nr)){
@@ -171,9 +171,18 @@ function modify_tasks()
         $id = mysqli_real_escape_string($connection, $_POST['modify_id']);
         $thistask = get_task($id);
     } #else header("Location: ?mode=tasks");
-
+    if (!empty($_POST['dont_modi'])){
+        header("Location: ?mode=tasks");
+    }
     if (!empty($_POST['appr_modi'])) {
         $errors = array();
+        if ($_SESSION['user']['role'] != 'admin'){
+            if ($_SESSION['user']['id'] != $_POST['user_id']){
+                $_SESSION['message']= "saad muuta ainult enda ülesandeid";
+                header("Location: ?mode=tasks");
+                exit(0);
+            }
+        }
         if (empty($_POST['muudatask'])) {
             $errors[] = "lisa ülesande kirjeldus!";
         }
@@ -217,31 +226,41 @@ function modify_tasks()
 function delete_tasks(){
     global $connection;
     global $deltask;
+    global $seeid;
     if (empty($_SESSION['user'])) {
         header("Location: ?mode=login");
         exit(0);
     }
     if (!empty($_POST['delete'])){
+        $seeid = $_POST['delete_id'];
         $id = mysqli_real_escape_string($connection, $_POST['delete_id']);
         $deltask = get_task($id);
+    }else {
+        header("Location: ?mode=tasks");
     }
     if (!empty($_POST['dont_del'])){
         header("Location: ?mode=tasks");
     }
     if (!empty($_POST['appr_del'])) {
-            $id = mysqli_real_escape_string($connection, $_POST['id']);
-            $sql ="DELETE FROM `maile_tasks` WHERE `id`='$id'";
-            $result = mysqli_query($connection, $sql) or die(mysqli_error($connection). $sql);
-            if ($result) {
-                $_SESSION['message'] = "kustutamine õnnestus";
+        if ($_SESSION['user']['role'] != 'admin'){
+            $user = get_task(mysqli_real_escape_string($connection, $_POST['id']))['user_id'];
+            if ($_SESSION['user']['id'] != $user){
+                $_SESSION['message']= "saad kustutada ainult enda ülesandeid";
                 header("Location: ?mode=tasks");
                 exit(0);
-            } else {
-                $errors[] = "ülesande kustutamine ei õnnestunud";
             }
-
+        }
+        $id = mysqli_real_escape_string($connection, $_POST['id']);
+        $sql = "DELETE FROM `maile_tasks` WHERE `id`='$id'";
+        $result = mysqli_query($connection, $sql) or die(mysqli_error($connection) . $sql);
+        if ($result) {
+            $_SESSION['message'] = "kustutamine õnnestus";
+            header("Location: ?mode=tasks");
+            exit(0);
+        } else {
+            $errors[] = "ülesande kustutamine ei õnnestunud";
+        }
     }
-
     include_once('views/delete.html');
 }
 

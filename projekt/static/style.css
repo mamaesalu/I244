@@ -40,7 +40,7 @@ body {
     width: 40%;
     margin-top:25%;
 }
-.tasks {
+table {
     width: 800px;
     table-layout: fixed;
     border-collapse: collapse;
@@ -51,10 +51,12 @@ body {
 }
 .task_col {
     overflow:hidden;
-    width:350px;
+    width:400px;
     word-wrap:break-word;
-    display: table-cell
 }
 .clear {
     clear:both;
+}
+.categ {
+    text-align: center;
 }

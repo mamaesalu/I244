@@ -1,5 +1,5 @@
 <div id="delete">
-    Kas soovid kustutada ülesande:
+    Kas soovid kustutada ülesande:<br><br>
     <table class = "">
         <thead>
         <tr>
@@ -10,7 +10,7 @@
         <tbody>
         <tr>
             <td class = "task_col"><?php echo $deltask['task'] ?></td>
-            <td><?php echo $deltask['categ'] ?></td>
+            <td class = "categ"><?php echo $deltask['categ'] ?></td>
             <td class = "deadline_col"><?php echo $deltask['deadline'] ?></td>
         </tr>
         </tbody>
@@ -18,9 +18,7 @@
 
     <form name = "ifdelete" action="?mode=delete" method="POST" >
         <input type="hidden" name="id" value = "<?php echo $deltask['id']; ?>" /><br/><br>
-        <input type="submit" value="JAH" name = "appr_del"/><br><br>
-    </form>
-    <form name = "ifdelete" action="?mode=delete" method="POST" >
+        <input type="submit" value="JAH" name = "appr_del"/>
         <input type="submit" value="EI" name = "dont_del"/><br><br>
     </form>
     <?php if (isset($errors)):?>
@@ -31,3 +29,5 @@
 </div>
 <pre><?php var_dump($deltask['id']);?></pre>
 <pre><?php var_dump($_POST['delete_id']);?></pre>
+<pre><?php var_dump($seeid);?></pre>
+<pre><?php var_dump($deltask['user_id']);?></pre>

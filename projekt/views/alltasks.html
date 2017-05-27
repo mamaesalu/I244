@@ -1,7 +1,7 @@
 <div class = 'tasks'>
     <?php if (!empty($tasks)): ?>
         <?php foreach ($tasks as $nr=>$user) :?>
-        <table id = "tasks">
+        <table class = "tasks">
         <thead>
         <tr>
             <th class = "task_col">Ülesanne</th><th>Kategooria</th><th>Tähtaeg</th>
@@ -38,7 +38,7 @@
                 <td>
                     <form action = "?mode=delete" method="POST">
                         <input type="hidden" name="delete_id" value = "<?php echo $task['id']; ?>" />
-                        <input type="submit" value="Kustuta"/>
+                        <input type="submit" value="Kustuta" name = "delete"/>
                     </form>
                 </td>
             </tr>

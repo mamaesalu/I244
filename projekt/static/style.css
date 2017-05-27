@@ -40,17 +40,20 @@ body {
     width: 40%;
     margin-top:25%;
 }
-#tasks {
+.tasks {
+    width: 800px;
+    table-layout: fixed;
     border-collapse: collapse;
 }
 
-#tasks, th, td {
+.tasks, th, td {
     border: 1px solid black;
 }
 .task_col {
     overflow:hidden;
-    white-space:nowrap;
-    width:400px
+    width:350px;
+    word-wrap:break-word;
+    display: table-cell
 }
 .clear {
     clear:both;

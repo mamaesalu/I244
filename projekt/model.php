@@ -213,6 +213,38 @@ function modify_tasks()
     include_once('views/modify.html');
 
 }
+
+function delete_tasks(){
+    global $connection;
+    global $deltask;
+    if (empty($_SESSION['user'])) {
+        header("Location: ?mode=login");
+        exit(0);
+    }
+    if (!empty($_POST['delete'])){
+        $id = mysqli_real_escape_string($connection, $_POST['delete_id']);
+        $deltask = get_task($id);
+    }
+    if (!empty($_POST['dont_del'])){
+        header("Location: ?mode=tasks");
+    }
+    if (!empty($_POST['appr_del'])) {
+            $id = mysqli_real_escape_string($connection, $_POST['id']);
+            $sql ="DELETE FROM `maile_tasks` WHERE `id`='$id'";
+            $result = mysqli_query($connection, $sql) or die(mysqli_error($connection). $sql);
+            if ($result) {
+                $_SESSION['message'] = "kustutamine õnnestus";
+                header("Location: ?mode=tasks");
+                exit(0);
+            } else {
+                $errors[] = "ülesande kustutamine ei õnnestunud";
+            }
+
+    }
+
+    include_once('views/delete.html');
+}
+
 function get_task($id)
 {
         global $connection;

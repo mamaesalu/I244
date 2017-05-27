@@ -99,7 +99,8 @@ function view_alltasks(){
 function add_tasks(){
     global $connection;
     global $users;
-    $categs=array("kool", "kodu", "töö", "muu");
+    global $categs;
+    $categs = array("kool", "kodu", "töö", "muu");
     $users = get_users();
     if (empty($_SESSION['user'])) {
         header("Location: ?mode=login");
@@ -153,4 +154,73 @@ function get_users(){
         $users[]=$r;
     }
     return $users;
+}
+
+function modify_tasks()
+{
+    global $connection;
+    global $categs;
+    $categs = array("kool", "kodu", "töö", "muu");
+    $users = get_users();
+    global $thistask;
+    if (empty($_SESSION['user'])) {
+        header("Location: ?mode=login");
+        exit(0);
+    }
+    if (!empty($_POST['modify'])){
+        $id = mysqli_real_escape_string($connection, $_POST['modify_id']);
+        $thistask = get_task($id);
+    } #else header("Location: ?mode=tasks");
+
+    if (!empty($_POST['appr_modi'])) {
+        $errors = array();
+        if (empty($_POST['muudatask'])) {
+            $errors[] = "lisa ülesande kirjeldus!";
+        }
+        if (strlen($_POST['muudatask']) > 200) {
+            $errors[] = "maksimaalne tähemärkide arv on 200!";
+        }
+        if (empty($_POST['muudacateg'])) {
+            $errors[] = "vali ülesandele kategooria!";
+        }
+        if (empty($_POST['muudadeadline'])) {
+            $errors[] = "lisa täitmise tähtaeg!";
+        }
+        if (strtotime($_POST['muudadeadline']) < strtotime('TODAY')) {
+            $errors[] = "tähtaeg ei saa olla minevikus!";
+        }
+
+        if (empty($errors)) {
+            $uustask = mysqli_real_escape_string($connection, $_POST['muudatask']);
+            $uuscateg = mysqli_real_escape_string($connection, $_POST['muudacateg']);
+            $uusdeadline = mysqli_real_escape_string($connection, $_POST['muudadeadline']);
+            $thisuser = mysqli_real_escape_string($connection, $_POST['user_id']);
+            $id = mysqli_real_escape_string($connection, $_POST['id']);
+
+            $sql ="UPDATE `maile_tasks` SET `task`='$uustask', `user_id`='$thisuser', `categ`='$uuscateg', `deadline`='$uusdeadline' WHERE `id`='$id'";
+            $result = mysqli_query($connection, $sql) or die(mysqli_error($connection). $sql);
+
+            if ($result) {
+                $_SESSION['message'] = "muutmine õnnestus";
+                header("Location: ?mode=tasks");
+                exit(0);
+            } else {
+                $errors[] = "ülesande muutmine ei õnnestunud";
+            }
+        }
+
+    }
+    include_once('views/modify.html');
+
+}
+function get_task($id)
+{
+        global $connection;
+        $task = array();
+        $sql = "SELECT * FROM maile_tasks WHERE id={$id}";
+        $result = mysqli_query($connection, $sql) or die("ei saa andmeid " . mysqli_error());
+        while ($r = mysqli_fetch_assoc($result)) {
+            $task = $r;
+        }
+        return $task;
 }

@@ -26,6 +26,9 @@ switch($mode){
     case "add":
         add_tasks();
         break;
+    case "modify":
+        modify_tasks();
+        break;
     default:
         include("views/main.html");
         break;

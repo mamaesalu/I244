@@ -13,7 +13,8 @@
             <?php else: ?>
             <?php foreach($users as $key => $usr):?>
             <?php if($usr['id']==$nr): ?>
-            <p>Kasutaja <b><?php echo $usr['usern']; ?></b> ülesanded:</p>
+            <br>
+            <p>Kasutaja <b><?php echo htmlspecialchars($usr['usern']); ?></b> ülesanded:</p>
             <?php endif; ?>
             <?php endforeach;?>
 
@@ -21,7 +22,7 @@
             <tbody>
             <?php foreach ($user as $task):?>
             <tr>
-                <td class = "task_col"><?php echo $task['task']; ?></td><td><?php echo $task['categ']; ?></td><td><?php echo $task['deadline']; ?></td>
+                <td class = "task_col"><?php echo htmlspecialchars($task['task']); ?></td><td><?php echo htmlspecialchars($task['categ']); ?></td><td><?php echo htmlspecialchars($task['deadline']); ?></td>
             </tr>
             <?php endforeach;?>
             </tbody>

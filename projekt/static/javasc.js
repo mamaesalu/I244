@@ -7,4 +7,5 @@ $(document ).ready(function() {
         var length = text_max-length;
         $('#char_left').text(length);
     });
+
 });

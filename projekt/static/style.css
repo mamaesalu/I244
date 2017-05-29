@@ -6,7 +6,7 @@ body {
     text-align: right;
     background-color: lightgrey;
 }
-#kont{
+#wrap {
     width: 800px;
     background: white;
     margin: auto;

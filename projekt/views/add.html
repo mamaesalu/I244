@@ -20,7 +20,7 @@
             <?php endforeach;?>
         </select><br><br>
         Määra ülesandele täitmise tähtaeg:
-        <input type="date" name="deadline" value = "<?php if (!empty($_POST['deadline'])) echo htmlspecialchars($_POST['deadline']);?>"/><br/><br>
+        <input type="date" id = "deadline" name="deadline" value = "<?php if (!empty($_POST['deadline'])) echo htmlspecialchars($_POST['deadline']);?>"/><br/><br>
         <input type="submit" value="Lisa ülesanne!"/><br><br>
     </form>
     <?php if (isset($errors)):?>

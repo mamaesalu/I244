@@ -120,6 +120,12 @@ function add_tasks(){
         if (strtotime($_POST['deadline']) < strtotime('TODAY')){
             $errors[]="tähtaeg ei saa olla minevikus!";
         }
+        $dtInfo = date_parse($_POST['deadline']);
+        if($dtInfo['warning_count'] == 0 && $dtInfo['error_count'] == 0 ){
+
+        }else{
+            $errors[]= "tähtaeg ei ole sobivas formaadis! Firefoxis on formaat yyyy/mm/dd";
+        }
         $userid = array();
         foreach ($users as $user){
             $userid[]=$user['id'];

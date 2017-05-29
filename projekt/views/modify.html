@@ -18,7 +18,7 @@
         Muuda valdkonda:
         <select name = "muudacateg">
             <?php foreach($categs as $cat):?>
-            <option value="<?php echo $cat; ?>"<?php if (((empty($_POST['appr_modi'])) ? (htmlspecialchars($thistask['categ'])) : ($_POST['muudacateg']))== $cat) echo 'selected = "selected"';?>><?php echo htmlspecialchars($cat); ?></option>
+            <option value="<?php echo htmlspecialchars($cat); ?>"<?php if (((empty($_POST['appr_modi'])) ? (htmlspecialchars($thistask['categ'])) : ($_POST['muudacateg']))== $cat) echo 'selected = "selected"';?>><?php echo htmlspecialchars($cat); ?></option>
             <?php endforeach;?>
         </select><br><br>
         Muuda täitmise tähtaega:

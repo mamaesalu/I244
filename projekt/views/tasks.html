@@ -1,7 +1,5 @@
 <div class = 'tasks_page'>
-    <?php if(!empty($_POST)) : ?>
-    <?php print_r($_SESSION['message']); ?>
-    <?php endif; ?>
+
     <?php if (!empty($tasks)): ?>
     <table class = "tasks">
         <thead>
@@ -13,9 +11,9 @@
         <?php foreach ($tasks as $task): ?>
             <tbody>
             <tr>
-                <td class = "task_col"><?php echo $task['task'] ?></td>
-                <td class = "categ"><?php echo $task['categ'] ?></td>
-                <td class = "deadline_col"><?php echo date("d-m-Y", strtotime($task['deadline'])); ?></td>
+                <td class = "task_col"><?php echo htmlspecialchars($task['task']) ?></td>
+                <td class = "categ"><?php echo htmlspecialchars($task['categ']) ?></td>
+                <td class = "deadline_col"><?php echo date("d-m-Y", htmlspecialchars(strtotime($task['deadline']))); ?></td>
                 <td class = "tbl">
                 <form action = "?mode=modify" method="POST">
                     <input type="hidden" name="modify_id" value = "<?php echo htmlspecialchars($task['id']); ?>" />

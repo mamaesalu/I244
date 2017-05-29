@@ -13,7 +13,6 @@ function connect_db(){
 function login(){
     global $connection;
     global $errors;
-    #global $userid;
     if (!empty($_SESSION['user'])){
         header("Location: ?page=tasks");
     }
@@ -34,7 +33,6 @@ function login(){
                 $result = mysqli_query($connection, $sql) or die ("ei saa parooli ja kasutajat kontrollitud".mysqli_error($connection));
                 if ($result && $user = mysqli_fetch_assoc($result)){
                     $_SESSION['user'] = $user;
-                    #$userid = $rida[id];
                     header("Location: ?mode=tasks");
                 } else {
                     header("Location: ?mode=login");
@@ -80,7 +78,6 @@ function view_alltasks(){
         header("Location: ?mode=tasks");
     }
     $tasks = array();
-    #$userid = mysqli_real_escape_string($connection, $_SESSION['user']['id']);
     if ($_SESSION['user']['role'] == 'admin') {
         $sql = "SELECT DISTINCT(user_id) AS user_id FROM maile_tasks ORDER BY user_id ASC";
         $userid_nr = mysqli_query($connection, $sql) or die ("ei saanud kasutajate numbreid");
@@ -122,6 +119,16 @@ function add_tasks(){
         }
         if (strtotime($_POST['deadline']) < strtotime('TODAY')){
             $errors[]="tähtaeg ei saa olla minevikus!";
+        }
+        $userid = array();
+        foreach ($users as $user){
+            $userid[]=$user['id'];
+        }
+        if (!in_array($_POST['user_id'], $userid)){
+            $errors[]="sellist kasutajat ei ole!";
+        }
+        if (!in_array($_POST['categ'], $categs)){
+            $errors[]="sellist kategooriat ei ole!";
         }
 
         if (empty($errors)){
@@ -197,6 +204,16 @@ function modify_tasks()
         }
         if (strtotime($_POST['muudadeadline']) < strtotime('TODAY')) {
             $errors[] = "tähtaeg ei saa olla minevikus!";
+        }
+        $userid = array();
+        foreach ($users as $user){
+            $userid[]=$user['id'];
+        }
+        if (!in_array($_POST['user_id'], $userid)){
+            $errors[]="sellist kasutajat ei ole!";
+        }
+        if (!in_array($_POST['muudacateg'], $categs)){
+            $errors[]="sellist kategooriat ei ole!";
         }
 
         if (empty($errors)) {

@@ -2,13 +2,15 @@
 
 Rakenduses saab pidada arvestust ühe pere ülesannete üle. Admin, ennekõike siis lapsevanem, näeb ja saab lisada ning muuta või kustutada kõikide kasutajate üleandeid. Tavakasutajad ehk lapsed näevad ja saavad muuta ning lisada või kustutada ainult iseenda ülesandeid.
 
-Projekti kirjutamise jooksvad commitid on leitavad minu [aine I244 repost](https://github.com/mamaesalu/I244)
+Projekti kirjutamise jooksvad commitid on leitavad minu [I244 repost](https://github.com/mamaesalu/I244)
 
 ##Olemas
 Vastavalt õigustele saab ülesandeid lisada, muuta ja kustutada.
 
 #####Tuleb edaspidi ehk mis lisaks võiks olla 
+Täitmise tähtaeg ehk kuupäev paremas formaadis.
 Lisaks kustutamisele võimalus ülesandeid täidetuks märkida, nii et nendest tekiks tehtud ülesannete arhiiv.
+Kuupäeva sisestamine kasutades nt jquery datepickerit, sest olenevalt lehitsejast võib praegune lahendus olla kole või segadusttekitav.
 
 ##Retsenseerimiseks/testimiseks:
 admin/admin

@@ -9,15 +9,15 @@
 
         <tbody>
         <tr>
-            <td class = "task_col"><?php echo $deltask['task'] ?></td>
-            <td class = "categ"><?php echo $deltask['categ'] ?></td>
-            <td class = "deadline_col"><?php echo $deltask['deadline'] ?></td>
+            <td class = "task_col"><?php echo htmlspecialchars($deltask['task']) ?></td>
+            <td class = "categ"><?php echo htmlspecialchars($deltask['categ']) ?></td>
+            <td class = "deadline_col"><?php echo htmlspecialchars($deltask['deadline']) ?></td>
         </tr>
         </tbody>
     </table>
 
     <form name = "ifdelete" action="?mode=delete" method="POST" >
-        <input type="hidden" name="id" value = "<?php echo $deltask['id']; ?>" /><br/><br>
+        <input type="hidden" name="id" value = "<?php echo htmlspecialchars($deltask['id']); ?>" /><br/><br>
         <input type="submit" value="JAH" name = "appr_del"/>
         <input type="submit" value="EI" name = "dont_del"/><br><br>
     </form>
@@ -27,7 +27,3 @@
     <?php endforeach;?>
     <?php endif;?>
 </div>
-<pre><?php var_dump($deltask['id']);?></pre>
-<pre><?php var_dump($_POST['delete_id']);?></pre>
-<pre><?php var_dump($seeid);?></pre>
-<pre><?php var_dump($deltask['user_id']);?></pre>
